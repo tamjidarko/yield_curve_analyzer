@@ -65,6 +65,9 @@ class YieldCurveAnalyzer:
                     # Convert to Series and ensure we have valid data
                     close_data = data['Close'].dropna()
                     if len(close_data) > 0:
+                        # Ensure it's a proper Series with DatetimeIndex
+                        if not isinstance(close_data.index, pd.DatetimeIndex):
+                            close_data.index = pd.to_datetime(close_data.index)
                         treasury_data[maturity] = close_data
                         successful_fetches.append(maturity)
                         print(f"✓ Successfully fetched {maturity} data ({len(close_data)} points)")
@@ -87,7 +90,8 @@ class YieldCurveAnalyzer:
                 for key, series in treasury_data.items():
                     print(f"  {key}: {len(series)} points, index type: {type(series.index)}")
                     print(f"    First few dates: {series.index[:3].tolist()}")
-                    print(f"    First few values: {series.head(3).tolist()}")
+                    print(f"    First few values: {series.head(3).values.flatten().tolist()}")
+                    print(f"    Data type: {type(series)}")
                 
                 # Ensure all series have datetime index
                 processed_data = {}
@@ -495,8 +499,8 @@ def main():
     
     # Generate summary report
     print("\n📋 Generating summary report...")
-    analyzer.generate_summary_report()    
+    analyzer.generate_summary_report()
+    
     print("\n✅ Analysis complete!")
-
 if __name__ == "__main__":
     main()
