@@ -184,7 +184,7 @@ This project is for educational purposes. Data is sourced from publicly availabl
 
 Created as part of a fixed income analysis learning project. Demonstrates fundamental yield curve concepts and Python implementation for financial analysis.
 
-**Author**: [Your Name]  
+**Author**: Awsaf Tamjid Arko 
 **Date**: August 2025  
 **Purpose**: Educational - Fixed Income & Python Learning
 
